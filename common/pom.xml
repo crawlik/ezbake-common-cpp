@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--   Copyright (C) 2013-2015 Computer Sciences Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ezbake</groupId>
+        <artifactId>ezbake-common-cpp-parent</artifactId>
+        <version>2.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ezbake-common-cpp</artifactId>
+    <packaging>nar</packaging>
+    <name>EzBake Common API Library</name>
+
+    <properties>
+        <rpm.artifact.name>ezbake-common</rpm.artifact.name>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>ezbake</groupId>
+            <artifactId>ezbake-base-thrift</artifactId>
+            <type>nar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.maven-nar</groupId>
+                <artifactId>nar-maven-plugin</artifactId>
+                <configuration>
+                    <linker>
+                        <sysLibs>
+                            <sysLib>
+                                <name>boost_filesystem</name>
+                            </sysLib>
+                            <sysLib>
+                                <name>thrift</name>
+                            </sysLib>
+                            <sysLib>
+                                <name>ssl</name>
+                            </sysLib>
+                            <sysLib>
+                                <name>crypto</name>
+                            </sysLib>
+                        </sysLibs>
+                        <testOptions>
+                            <testOption>-lboost_thread-mt</testOption>
+                        </testOptions>
+                    </linker>
+                    <tests>
+                        <test>
+                            <name>${project.artifactId}-shared-unittest</name>
+                            <link>shared</link>
+                            <run>true</run>
+                        </test>
+                    </tests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>rpmbuild</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>rpm-maven-plugin</artifactId>
+                        <configuration>
+                            <requires combine.children="append">
+                                <require>boost-filesystem</require>
+                                <require>openssl</require>
+                                <require>thrift = ${thrift.rpm.version}</require>
+                                <require>ezbake-base-thrift &gt;= 2.1</require>
+                            </requires>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
