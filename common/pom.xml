@@ -54,6 +54,9 @@
                                 <name>boost_system</name>
                             </sysLib>
                             <sysLib>
+                                <name>boost_thread-mt</name>
+                            </sysLib>
+                            <sysLib>
                                 <name>thrift</name>
                             </sysLib>
                             <sysLib>
@@ -63,9 +66,9 @@
                                 <name>crypto</name>
                             </sysLib>
                         </sysLibs>
-                        <testOptions>
+                        <!--<testOptions>
                             <testOption>-Bdynamic -lboost_thread-mt</testOption>
-                        </testOptions>
+                        </testOptions>-->
                     </linker>
                     <tests>
                         <test>
