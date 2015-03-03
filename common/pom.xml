@@ -54,10 +54,10 @@
                             <sysLib>
                                 <name>boost_system</name>
                             </sysLib>
-                            <!--<sysLib>
+                            <sysLib>
                                 <name>boost_thread-mt</name>
                             </sysLib>
-                            <sysLib>
+                            <!--<sysLib>
                                 <name>pthread</name>
                             </sysLib>-->
                             <sysLib>
@@ -70,9 +70,9 @@
                                 <name>crypto</name>
                             </sysLib>
                         </sysLibs>
-                        <testOptions>
+                        <!--<testOptions>
                             <testOption>-lboost_thread-mt</testOption>
-                        </testOptions>
+                        </testOptions>-->
                     </linker>
                     <tests>
                         <test>
