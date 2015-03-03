@@ -51,9 +51,6 @@
                                 <name>boost_filesystem</name>
                             </sysLib>
                             <sysLib>
-                                <name>boost_system</name>
-                            </sysLib>
-                            <sysLib>
                                 <name>thrift</name>
                             </sysLib>
                             <sysLib>
@@ -65,8 +62,6 @@
                         </sysLibs>
                         <testOptions>
                             <testOption>-lboost_thread-mt</testOption>
-                            <testOption>-lboost_thread</testOption>
-                            <testOption>-lboost_system</testOption>
                         </testOptions>
                     </linker>
                     <tests>
