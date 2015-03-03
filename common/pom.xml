@@ -71,6 +71,8 @@
                             </sysLib>
                         </sysLibs>
                         <testOptions>
+                            <testOption>-lboost_filesystem</testOption>
+                            <testOption>-lboost_system</testOption>
                             <testOption>-lboost_thread-mt</testOption>
                             <testOption>-lpthread</testOption>
                         </testOptions>
