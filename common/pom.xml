@@ -71,14 +71,7 @@
                             </sysLib>
                         </sysLibs>
                         <testOptions>
-                            <testOption>-Bdynamic</testOption>
-                            <testOption>-lboost_filesystem</testOption>
-                            <testOption>-Bdynamic</testOption>
-                            <testOption>-lboost_system</testOption>
-                            <testOption>-Bdynamic</testOption>
                             <testOption>-lboost_thread-mt</testOption>
-                            <testOption>-Bdynamic</testOption>
-                            <testOption>-lpthread</testOption>
                         </testOptions>
                     </linker>
                     <tests>
