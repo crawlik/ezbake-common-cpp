@@ -64,7 +64,7 @@
                             </sysLib>
                         </sysLibs>
                         <testOptions>
-                            <testOption>-lboost_thread-mt</testOption>
+                            <testOption>-Bdynamic -lboost_thread-mt</testOption>
                         </testOptions>
                     </linker>
                     <tests>
