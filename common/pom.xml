@@ -57,6 +57,9 @@
                                 <name>boost_thread-mt</name>
                             </sysLib>
                             <sysLib>
+                                <name>pthread</name>
+                            </sysLib>
+                            <sysLib>
                                 <name>thrift</name>
                             </sysLib>
                             <sysLib>
