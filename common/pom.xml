@@ -70,9 +70,10 @@
                                 <name>crypto</name>
                             </sysLib>
                         </sysLibs>
-                        <!--<testOptions>
-                            <testOption>-lboost_thread-mt</testOption>
-                        </testOptions>-->
+                        <testOptions>
+                            <testOption>-Wl,--no-as-needed</testOption>
+                            <!--<testOption>-lboost_thread-mt</testOption>-->
+                        </testOptions>
                     </linker>
                     <tests>
                         <test>
