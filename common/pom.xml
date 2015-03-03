@@ -66,6 +66,7 @@
                         <testOptions>
                             <testOption>-lboost_thread-mt</testOption>
                             <testOption>-lboost_thread</testOption>
+                            <testOption>-lboost_system</testOption>
                         </testOptions>
                     </linker>
                     <tests>
