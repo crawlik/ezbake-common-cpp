@@ -29,6 +29,7 @@
 
     <properties>
         <rpm.artifact.name>ezbake-common</rpm.artifact.name>
+        <maven.test.skip>true</maven.test.skip>
     </properties>
 
     <dependencies>
