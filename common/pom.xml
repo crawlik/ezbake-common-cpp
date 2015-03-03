@@ -51,6 +51,9 @@
                                 <name>boost_filesystem</name>
                             </sysLib>
                             <sysLib>
+                                <name>boost_system</name>
+                            </sysLib>
+                            <sysLib>
                                 <name>thrift</name>
                             </sysLib>
                             <sysLib>
