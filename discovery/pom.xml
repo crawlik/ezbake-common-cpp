@@ -1,0 +1,123 @@
+<!--   Copyright (C) 2013-2015 Computer Sciences Corporation
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License. -->
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>ezbake</groupId>
+        <artifactId>ezbake-common-cpp-parent</artifactId>
+        <version>2.1</version>
+    </parent>
+
+    <artifactId>ezbake-discovery-servicediscovery-cpp</artifactId>
+    <packaging>nar</packaging>
+    <name>EzBake Service Discovery Library</name>
+
+    <properties>
+       <rpm.artifact.name>ezbake-discovery-servicediscovery</rpm.artifact.name>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>process-test-resources</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>ezbake</groupId>
+                                    <artifactId>local-zookeeper</artifactId>
+                                    <version>2.1-SNAPSHOT</version>
+                                    <type>jar</type>
+                                    <classifier>jar-with-dependencies</classifier>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}</outputDirectory>
+                                    <destFileName>local-zookeeper.jar</destFileName>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.github.maven-nar</groupId>
+                <artifactId>nar-maven-plugin</artifactId>
+                <configuration>
+                    <cpp>
+                        <includePaths>
+                            <includePath>${basedir}/src/main/include</includePath>
+                            <includePath>${basedir}/src/main/cpp/contrib/zk/include</includePath>
+                        </includePaths>
+                        <options combine.children="append">
+                            <option>-Wno-unused-parameter</option>
+                        </options>
+                    </cpp>
+                    <linker>
+                        <sysLibs>
+                            <sysLib>
+                                <name>boost_thread-mt</name>
+                            </sysLib>
+                            <sysLib>
+                                <name>boost_filesystem</name>
+                            </sysLib>
+                            <sysLib>
+                                <name>log4cxx</name>
+                            </sysLib>
+                        </sysLibs>
+                    </linker>
+                    <tests>
+                        <test>
+                            <name>${project.artifactId}-unittest</name>
+                            <run>false</run>
+                        </test>
+                    </tests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>rpmbuild</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>rpm-maven-plugin</artifactId>
+                        <configuration>
+                            <requires combine.children="append">
+                                <require>boost-thread</require>
+                                <require>boost-filesystem</require>
+                                <require>log4cxx</require>
+                            </requires>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
