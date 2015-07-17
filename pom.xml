@@ -19,12 +19,19 @@
 
     <parent>
         <groupId>ezbake</groupId>
-        <artifactId>ezbake-cpp-parent</artifactId>
+        <artifactId>ezbake-parent</artifactId>
         <version>2.1</version>
     </parent>
 
     <artifactId>ezbake-common-cpp-parent</artifactId>
     <packaging>pom</packaging>
+
+    <properties>
+        <native.build.skip>false</native.build.skip>
+        <!-- NOTE: debug must be false for optimize to be used -->
+        <native.debug>true</native.debug>
+        <native.optimize>none</native.optimize>
+    </properties>
 
     <modules>
         <module>common</module>
@@ -61,6 +68,34 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                    <groupId>com.github.maven-nar</groupId>
+                    <artifactId>nar-maven-plugin</artifactId>
+                    <version>3.1.0</version>
+                    <extensions>true</extensions>
+                    <configuration>
+                        <skip>${native.build.skip}</skip>
+                        <cpp>
+                            <name>g++</name>
+                            <debug>${native.debug}</debug>
+                            <optimize>${native.optimize}</optimize>
+                            <options>
+                                <option>-fmessage-length=0</option>
+                                <option>-std=c++0x</option>
+                                <option>-Wall</option>
+                                <option>-Wpointer-arith</option>
+                            </options>
+                        </cpp>
+                        <libraries>
+                            <library>
+                                <type>shared</type>
+                            </library>
+                        </libraries>
+                        <linker>
+                            <name>g++</name>
+                        </linker>
+                    </configuration>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
                     <version>2.9</version>
@@ -87,6 +122,11 @@
             <plugin>
                 <groupId>org.apache.rat</groupId>
                 <artifactId>apache-rat-plugin</artifactId>
+                <configuration>
+                    <excludes combine.children="append">
+                        <exclude>**/contrib/**</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
